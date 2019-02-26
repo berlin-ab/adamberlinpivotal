@@ -54,6 +54,9 @@ RUN echo "gpadmin ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/gpadmin && \
 
 RUN locale-gen en_US.UTF-8
 
+RUN printf "#!/bin/bash\nsudo service ssh start" > /start-sshd.bash && \
+    chmod +x /start-sshd.bash
+
 #
 #  All user specific steps
 #
