@@ -6,6 +6,7 @@ RUN apt-get update \
 		       ssh \
 		       sudo \
 		       time \
+		       iproute2 \
 		       libzstd1-dev \
 		       bison \
 		       ccache \
@@ -43,8 +44,18 @@ RUN apt-get update \
 		       python-yaml \
 		       zlib1g-dev
 
-		       
-
 # Create gpadmin user and add the user to the sudoers
 RUN useradd -md /home/gpadmin/ gpadmin
 
+RUN echo "gpadmin ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/gpadmin && \
+    chmod 0440 /etc/sudoers.d/gpadmin
+
+USER gpadmin
+    
+RUN ssh-keygen -f ~/.ssh/id_rsa -N '' \
+    && cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+
+RUN sudo service ssh start && \
+    ssh-keyscan -H localhost >> ~/.ssh/known_hosts
+
+ENTRYPOINT sudo service ssh start && bash
