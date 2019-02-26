@@ -44,12 +44,19 @@ RUN apt-get update \
 		       python-yaml \
 		       zlib1g-dev
 
-# Create gpadmin user and add the user to the sudoers
+#
+# Root specific steps
+#
 RUN useradd -md /home/gpadmin/ gpadmin
 
 RUN echo "gpadmin ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/gpadmin && \
     chmod 0440 /etc/sudoers.d/gpadmin
 
+RUN locale-gen en_US.UTF-8
+
+#
+#  All user specific steps
+#
 USER gpadmin
     
 RUN ssh-keygen -f ~/.ssh/id_rsa -N '' \
