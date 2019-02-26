@@ -65,4 +65,3 @@ RUN ssh-keygen -f ~/.ssh/id_rsa -N '' \
 RUN sudo service ssh start && \
     ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 
-ENTRYPOINT sudo service ssh start && bash
