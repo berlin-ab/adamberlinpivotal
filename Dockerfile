@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update \
  && apt-get install -y dirmngr \
 		       less \
@@ -16,6 +18,8 @@ RUN apt-get update \
 		       git-core \
 		       gcc \
 		       g++ \
+  		       krb5-admin-server \
+		       krb5-kdc \
 		       inetutils-ping \
 		       libapr1-dev \
 		       libbz2-dev \
