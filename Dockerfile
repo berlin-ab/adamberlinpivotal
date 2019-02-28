@@ -45,7 +45,8 @@ RUN apt-get update \
 		       python-pip \
 		       python-psutil \
 		       python-yaml \
-		       zlib1g-dev
+		       zlib1g-dev \
+		       cpanminus
 
 #
 # Root specific steps
@@ -59,6 +60,10 @@ RUN locale-gen en_US.UTF-8
 
 RUN printf "#!/bin/bash\nsudo service ssh start" > /start-sshd.bash && \
     chmod +x /start-sshd.bash
+
+ADD /cpanfile /cpanfile
+
+RUN cpanm --installdeps /
 
 #
 #  All user specific steps
