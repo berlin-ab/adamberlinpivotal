@@ -2,51 +2,66 @@ FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update \
- && apt-get install -y dirmngr \
-		       less \
-		       ssh \
-		       sudo \
-		       time \
-		       iproute2 \
-		       libzstd1-dev \
-		       bison \
-		       ccache \
-		       cmake \
-		       curl \
-		       flex \
-		       git-core \
-		       gcc \
-		       g++ \
-  		       krb5-admin-server \
-		       krb5-kdc \
-		       inetutils-ping \
-		       libapr1-dev \
-		       libbz2-dev \
-		       libcurl4-gnutls-dev \
-		       libevent-dev \
-		       libkrb5-dev \
-		       libpam-dev \
-		       libperl-dev \
-		       libreadline-dev \
-		       libssl-dev \
-		       libxml2-dev \
-		       libyaml-dev \
-		       libzstd-dev \
-		       locales \
-		       net-tools \
-		       ninja-build \
-		       openssh-client \
-		       openssh-server \
-		       openssl \
-		       python-dev \
-		       python-lockfile \
-		       python-paramiko \
-		       python-pip \
-		       python-psutil \
-		       python-yaml \
-		       zlib1g-dev \
-		       cpanminus
+RUN apt update
+
+#
+# Install necessary dependencies for GPDB testing
+#
+RUN apt install -y \
+    dirmngr \
+    less \
+    ssh \
+    sudo \
+    time \
+    iproute2 \
+    libzstd1-dev \
+    bison \
+    ccache \
+    cmake \
+    curl \
+    flex \
+    git-core \
+    gcc \
+    g++ \
+    krb5-admin-server \
+    krb5-kdc \
+    inetutils-ping \
+    libapr1-dev \
+    libbz2-dev \
+    libcurl4-gnutls-dev \
+    libevent-dev \
+    libkrb5-dev \
+    libpam-dev \
+    libperl-dev \
+    libreadline-dev \
+    libssl-dev \
+    libxml2-dev \
+    libyaml-dev \
+    libzstd-dev \
+    locales \
+    net-tools \
+    ninja-build \
+    openssh-client \
+    openssh-server \
+    openssl \
+    python-dev \
+    python-lockfile \
+    python-paramiko \
+    python-pip \
+    python-psutil \
+    python-yaml \
+    zlib1g-dev \
+    cpanminus
+
+
+#
+# Prepare debugging environment
+#
+RUN apt install -y \
+    ctags \
+    emacs-nox \
+    vim \
+    gdb
 
 #
 # Root specific steps
